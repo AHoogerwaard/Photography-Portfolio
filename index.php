@@ -6,6 +6,8 @@
     <title>Portfolio Anthonie Hoogerwaard</title>
 </head>
 <body>
-    <h1>Hello</h1>
+    <header>
+        <div class='title'>Photohraphy Portfolio Anthonie Hoogerwaard</div>
+    </header>
 </body>
 </html>
