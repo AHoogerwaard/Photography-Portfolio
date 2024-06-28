@@ -1,221 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carousel Example</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap">
+    <title>Image Carousel Example</title>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <style>
         * {
+            -webkit-box-sizing: border-box;
             box-sizing: border-box;
         }
-        
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
+
         body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px 10px;
-            font-family: 'DM Sans', sans-serif;
-            transition: background .4s ease-in;
-            background-color: #c394f8;
+            font-family: sans-serif;
         }
-        
-        body.blue {
-            background-color: #428aa6;
+
+        .gallery {
+            background: #EEE;
         }
-        
-        input[type=radio] {
-            display: none;
-        }
-        
-        .card {
-            position: absolute;
-            width: 50vw;
-            height: auto;
-            left: 0;
-            right: 0;
-            margin: auto;
-            transition: transform .4s ease, opacity .4s ease;
-            cursor: pointer;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 800px;
-            height: 100%;
-            max-height: 600px;
-            transform-style: preserve-3d;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .cards {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            margin-bottom: 20px;
-        }
-        
-        img {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-        
-        .player {
-            background-color: #fff;
-            border-radius: 8px;
-            min-width: 320px;
-            padding: 16px 10px;
-        }
-        
-        .upper-part {
-            position: relative;
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            height: 36px;
-            overflow: hidden;
-        }
-        
-        .play-icon {
+
+        .gallery-cell {
+            width: 60vw;
+            height: 100vh;
             margin-right: 10px;
-        }
-        
-        .song-info {
-            width: calc(100% - 32px);
-            display: block;
-        }
-        
-        .song-info .title {
-            color: #403d40;
-            font-size: 14px;
-            line-height: 24px;
-        }
-        
-        .sub-line {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-        
-        .subtitle, .time {
-            font-size: 12px;
-            line-height: 16px;
-            color: #c6c5c6;
-        }
-        
-        .time {
-            font-size: 12px;
-            line-height: 16px;
-            color: #a5a5a5;
-            font-weight: 500;
-            margin-left: auto;
-        }
-        
-        .progress-bar {
-            height: 3px;
-            width: 100%;
-            background-color: #e9efff;
-            border-radius: 2px;
             overflow: hidden;
         }
-        
-        .progress {
+
+        .gallery-cell img {
             display: block;
-            position: relative;
-            width: 60%;
-            height: 100%;
-            background-color: #2992dc;
-            border-radius: 6px;
-        }
-        
-        .info-area {
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 30px;
-            transition: transform .4s ease-in;
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <input type="radio" name="slider" id="item-1" checked>
-        <input type="radio" name="slider" id="item-2">
-        <input type="radio" name="slider" id="item-3">
-        <input type="radio" name="slider" id="item-4">
-        <div class="cards">
-            <label class="card" for="item-1" id="song-1">
-                <img src="photos/Petting-Zoo-Moordrecht/AHD_8090.jpg" alt="song">
-            </label>
-            <label class="card" for="item-2" id="song-2">
-                <img src="photos/Petting-Zoo-Moordrecht/AHD_8706.JPG" alt="song">
-            </label>
-            <label class="card" for="item-3" id="song-3">
-                <img src="photos/Petting-Zoo-Moordrecht/AHD_8710.JPG" alt="song">
-            </label>
-            <label class="card" for="item-4" id="song-4">
-                <img src="photos/Petting-Zoo-Moordrecht/AHD_8712.JPG" alt="song">
-            </label>
+    <!-- Flickity HTML init -->
+    <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true, "autoPlay": true }'>
+       
+        <div class="gallery-cell">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_8706.JPG" alt="Image 2">
+        </div>
+        <div class="gallery-cell">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_8090.JPG" alt="Image 1">
+        </div>
+        <div class="gallery-cell">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_8710.JPG" alt="Image 3">
+        </div>
+        <div class="gallery-cell">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_8712.JPG" alt="Image 4">
+        </div>
+        <div class="gallery-cell">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_8714.JPG" alt="Image 5">
+        </div>
+        <div class="gallery-cell">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_8715.JPG" alt="Image 5">
+        </div>
+        <div class="gallery-cell">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_8716.JPG" alt="Image 5">
         </div>
     </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var numOfItems = $('.cards .card').length;
-            var transitionDistance = 40; // Percentage of the card width to translate
-            var scaleFactor = 0.8;
-            var opacityFactor = 0.4;
-
-            function updateCards() {
-                var checkedIndex = $('input[name="slider"]:checked').index('input[name="slider"]');
-                $('.cards .card').each(function(index) {
-                    if (checkedIndex === index) {
-                        $(this).css({
-                            'transform': 'translateX(0) scale(1)',
-                            'opacity': '1',
-                            'z-index': '1'
-                        });
-                        $(this).find('img').css('box-shadow', '0px 0px 5px 0px rgba(81, 81, 81, 0.47)');
-                    } else if (checkedIndex > index) {
-                        $(this).css({
-                            'transform': `translateX(-${transitionDistance}%) scale(${scaleFactor})`,
-                            'opacity': opacityFactor,
-                            'z-index': '0'
-                        });
-                        $(this).find('img').css('box-shadow', 'none');
-                    } else {
-                        $(this).css({
-                            'transform': `translateX(${transitionDistance}%) scale(${scaleFactor})`,
-                            'opacity': opacityFactor,
-                            'z-index': '0'
-                        });
-                        $(this).find('img').css('box-shadow', 'none');
-                    }
-                });
-            }
-
-            updateCards();
-
-            $('input[name="slider"]').on('change', function() {
-                updateCards();
-                $('body').toggleClass('blue');
-            });
-        });
-    </script>
 </body>
+
 </html>
