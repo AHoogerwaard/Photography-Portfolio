@@ -3,61 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Portfolio Anthonie Hoogerwaard</title>
+    <title>Carousel Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap">
     <style>
-      body {
-          background-color: #222222;
-      }
-      .carousel-item img {
-          max-width: 50%; /* Set your desired maximum width */
-          max-height: 50%; /* Set your desired maximum height */
-          margin: 0 auto; /* Center the image horizontally */
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), /* Outer shadow */
-                      0 6px 20px rgba(0, 0, 0, 0.19); /* Larger shadow */
-          border-radius: 10px; /* Optional: to give rounded corners */
-      }
-      header .title {
-          color: white;
-          text-align: center;
-          margin: 20px 0;
-          font-size: 2em;
-      }
-  </style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 10px;
+            font-family: 'DM Sans', sans-serif;
+            transition: background .4s ease-in;
+            background-color: #c394f8;
+        }
+        
+        body.blue {
+            background-color: #428aa6;
+        }
+        
+        input[type=radio] {
+            display: none;
+        }
+        
+        .card {
+            position: absolute;
+            width: 50vw;
+            height: auto;
+            left: 0;
+            right: 0;
+            margin: auto;
+            transition: transform .4s ease, opacity .4s ease;
+            cursor: pointer;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            height: 100%;
+            max-height: 600px;
+            transform-style: preserve-3d;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cards {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin-bottom: 20px;
+        }
+        
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
+        .player {
+            background-color: #fff;
+            border-radius: 8px;
+            min-width: 320px;
+            padding: 16px 10px;
+        }
+        
+        .upper-part {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            height: 36px;
+            overflow: hidden;
+        }
+        
+        .play-icon {
+            margin-right: 10px;
+        }
+        
+        .song-info {
+            width: calc(100% - 32px);
+            display: block;
+        }
+        
+        .song-info .title {
+            color: #403d40;
+            font-size: 14px;
+            line-height: 24px;
+        }
+        
+        .sub-line {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .subtitle, .time {
+            font-size: 12px;
+            line-height: 16px;
+            color: #c6c5c6;
+        }
+        
+        .time {
+            font-size: 12px;
+            line-height: 16px;
+            color: #a5a5a5;
+            font-weight: 500;
+            margin-left: auto;
+        }
+        
+        .progress-bar {
+            height: 3px;
+            width: 100%;
+            background-color: #e9efff;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            display: block;
+            position: relative;
+            width: 60%;
+            height: 100%;
+            background-color: #2992dc;
+            border-radius: 6px;
+        }
+        
+        .info-area {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 30px;
+            transition: transform .4s ease-in;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class='title'>Photography Portfolio Anthonie Hoogerwaard</div>
-    </header>
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="photos/Petting-Zoo-Moordrecht/AHD_8706.JPG" alt="First slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="photos/Petting-Zoo-Moordrecht/AHD_8710.JPG" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="photos/Petting-Zoo-Moordrecht/AHD_8712.JPG" alt="Third slide">
-            </div>
+    <div class="container">
+        <input type="radio" name="slider" id="item-1" checked>
+        <input type="radio" name="slider" id="item-2">
+        <input type="radio" name="slider" id="item-3">
+        <input type="radio" name="slider" id="item-4">
+        <div class="cards">
+            <label class="card" for="item-1" id="song-1">
+                <img src="photos/Petting-Zoo-Moordrecht/AHD_8090.jpg" alt="song">
+            </label>
+            <label class="card" for="item-2" id="song-2">
+                <img src="photos/Petting-Zoo-Moordrecht/AHD_8706.JPG" alt="song">
+            </label>
+            <label class="card" for="item-3" id="song-3">
+                <img src="photos/Petting-Zoo-Moordrecht/AHD_8710.JPG" alt="song">
+            </label>
+            <label class="card" for="item-4" id="song-4">
+                <img src="photos/Petting-Zoo-Moordrecht/AHD_8712.JPG" alt="song">
+            </label>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var numOfItems = $('.cards .card').length;
+            var transitionDistance = 40; // Percentage of the card width to translate
+            var scaleFactor = 0.8;
+            var opacityFactor = 0.4;
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j5nQBIw7r7FXKp3yFuT" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            function updateCards() {
+                var checkedIndex = $('input[name="slider"]:checked').index('input[name="slider"]');
+                $('.cards .card').each(function(index) {
+                    if (checkedIndex === index) {
+                        $(this).css({
+                            'transform': 'translateX(0) scale(1)',
+                            'opacity': '1',
+                            'z-index': '1'
+                        });
+                        $(this).find('img').css('box-shadow', '0px 0px 5px 0px rgba(81, 81, 81, 0.47)');
+                    } else if (checkedIndex > index) {
+                        $(this).css({
+                            'transform': `translateX(-${transitionDistance}%) scale(${scaleFactor})`,
+                            'opacity': opacityFactor,
+                            'z-index': '0'
+                        });
+                        $(this).find('img').css('box-shadow', 'none');
+                    } else {
+                        $(this).css({
+                            'transform': `translateX(${transitionDistance}%) scale(${scaleFactor})`,
+                            'opacity': opacityFactor,
+                            'z-index': '0'
+                        });
+                        $(this).find('img').css('box-shadow', 'none');
+                    }
+                });
+            }
+
+            updateCards();
+
+            $('input[name="slider"]').on('change', function() {
+                updateCards();
+                $('body').toggleClass('blue');
+            });
+        });
+    </script>
 </body>
 </html>
