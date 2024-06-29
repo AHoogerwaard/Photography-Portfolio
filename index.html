@@ -15,17 +15,22 @@
 
         body {
             font-family: sans-serif;
+            background-color: #1f1f1f;
+            margin: 0;
+            padding: 0;
         }
 
         .gallery {
-            background: #EEE;
+            width: 80vw;
+            margin-left: 10vw;
         }
 
         .gallery-cell {
-            width: 60vw;
-            height: 100vh;
+            width: 50vw;
             margin-right: 10px;
             overflow: hidden;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
         }
 
         .gallery-cell img {
@@ -33,13 +38,29 @@
             max-width: 100%;
             height: auto;
         }
+
+        .gallery-cell.is-selected {
+            opacity: 1;
+            border: 2px solid #313232; 
+        }
+
+        .title-bar {
+            color: rgb(173, 165, 165);
+            width: 100vw;
+            padding-top: 25px;
+            height: 10vh;
+            background-color: #181818;
+            font-size: 30px;
+            margin-bottom: 3vh;
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Flickity HTML init -->
+    <div class="title-bar">Photography Portfolio Anthonie Hoogerwaard</div>
     <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true, "autoPlay": true }'>
-       
         <div class="gallery-cell">
             <img src="photos/Petting-Zoo-Moordrecht/AHD_8706.JPG" alt="Image 2">
         </div>
@@ -56,12 +77,21 @@
             <img src="photos/Petting-Zoo-Moordrecht/AHD_8714.JPG" alt="Image 5">
         </div>
         <div class="gallery-cell">
-            <img src="photos/Petting-Zoo-Moordrecht/AHD_8715.JPG" alt="Image 5">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_8715.JPG" alt="Image 6">
         </div>
         <div class="gallery-cell">
-            <img src="photos/Petting-Zoo-Moordrecht/AHD_8716.JPG" alt="Image 5">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_8716.JPG" alt="Image 7">
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var flkty = new Flickity('.gallery', {
+                wrapAround: true,
+                autoPlay: true
+            });
+        });
+    </script>
 </body>
 
 </html>
