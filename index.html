@@ -37,6 +37,8 @@
             display: block;
             max-width: 100%;
             height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         .gallery-cell.is-selected {
@@ -54,6 +56,23 @@
             margin-bottom: 3vh;
             text-align: center;
             font-weight: bold;
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        dialog img {
+            max-width: 80vw;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+        }
+
+        dialog {
+            border: none;
+            padding: 0;
+            background: transparent;
         }
     </style>
 </head>
@@ -101,24 +120,40 @@
             <img src="photos/Petting-Zoo-Moordrecht/AHD_9361.JPG" alt="Image 14">
         </div>
         <div class="gallery-cell">
-            <img src="photos/Petting-Zoo-Moordrecht/AHD_9363.JPG" alt="Image 15">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_9364.JPG" alt="Image 15">
         </div>
         <div class="gallery-cell">
-            <img src="photos/Petting-Zoo-Moordrecht/AHD_9364.JPG" alt="Image 16">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_9365.JPG" alt="Image 16">
         </div>
         <div class="gallery-cell">
-            <img src="photos/Petting-Zoo-Moordrecht/AHD_9365.JPG" alt="Image 17">
-        </div>
-        <div class="gallery-cell">
-            <img src="photos/Petting-Zoo-Moordrecht/AHD_9366.JPG" alt="Image 18">
+            <img src="photos/Petting-Zoo-Moordrecht/AHD_9366.JPG" alt="Image 17">
         </div>
     </div>
+
+    <dialog id="imageDialog">
+        <img id="dialogImage" src="" alt="Enlarged Image">
+    </dialog>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var flkty = new Flickity('.gallery', {
                 wrapAround: true,
                 autoPlay: true
+            });
+
+            var images = document.querySelectorAll('.gallery-cell img');
+            var dialog = document.getElementById('imageDialog');
+            var dialogImage = document.getElementById('dialogImage');
+
+            images.forEach(function (img) {
+                img.addEventListener('click', function () {
+                    dialogImage.src = img.src;
+                    dialog.showModal();
+                });
+            });
+
+            dialog.addEventListener('click', function () {
+                dialog.close();
             });
         });
     </script>
