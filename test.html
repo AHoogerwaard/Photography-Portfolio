@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Portfolio Anthonie Hoogerwaard</title>
+
+    <style>
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .modal-dialog {
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .modal-content {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border: none;
+        }
+
+        h1 {
+            padding-top: 10px;
+        }
+
+        .modal-body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            position: relative;
+        }
+
+        header {
+            background-color: #0e0d0d;
+            height: 8vh;
+        }
+
+        .modal-body img {
+            width: 100%;
+            height: 100vh;
+            object-fit: contain;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0e0d0d;
+        }
+
+        .card {
+            cursor: pointer;
+            width: 20vw;
+            background-color: #181818;
+            color: rgb(190, 189, 189);
+        }
+
+        .carousel-container {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body class="primary">
+    <header>
+        <h1 class="text">Photography Portfolio Anthonie Hoogerwaard</h1>
+    </header>
+
+    <div class="container margin mt-5" id="categoryCardsContainer">
+        <!-- Cards will be dynamically generated here -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-overlay" onclick="$('#imageModal').modal('hide')"></div>
+                    <div id="carouselFullscreenPhotos" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators"></ol>
+                        <div class="carousel-inner"></div>
+                        <a class="carousel-control-prev" href="#carouselFullscreenPhotos" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselFullscreenPhotos" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON('images.json', function (data) {
+                var categoryContainer = $('#categoryCardsContainer');
+
+                $.each(data.categories, function (category, images) {
+                    var categoryName = category.replace(/-/g, ' ');
+
+                    // Create a card for each category
+                    var card = $('<div>', {
+                        'class': 'card text mb-3',
+                        'data-toggle': 'modal',
+                        'data-target': '#imageModal',
+                        'data-category': category
+                    }).appendTo(categoryContainer);
+
+                    $('<img>', {
+                        'class': 'card-img-top',
+                        'src': images[0],
+                        'alt': 'Card image cap'
+                    }).appendTo(card);
+
+                    var cardBody = $('<div>', {
+                        'class': 'card-body'
+                    }).appendTo(card);
+
+                    $('<h5>', {
+                        'class': 'card-title',
+                        'text': categoryName
+                    }).appendTo(cardBody);
+
+                    $('<p>', {
+                        'class': 'card-text',
+                        'text': 'Click to view the photo gallery in full screen.'
+                    }).appendTo(cardBody);
+
+                    // Create a carousel container
+                    var carouselContainer = $('<div>', {
+                        'class': 'carousel-container',
+                        'id': 'carousel-' + category
+                    }).appendTo(categoryContainer);
+
+                    var carousel = $('<div>', {
+                        'id': 'carousel' + category,
+                        'class': 'carousel slide',
+                        'data-ride': 'carousel'
+                    }).appendTo(carouselContainer);
+
+                    var indicators = $('<ol>', {
+                        'class': 'carousel-indicators'
+                    }).appendTo(carousel);
+
+                    var inner = $('<div>', {
+                        'class': 'carousel-inner'
+                    }).appendTo(carousel);
+
+                    $.each(images, function (index, image) {
+                        var activeClass = index === 0 ? 'active' : '';
+
+                        // Create indicator
+                        $('<li>', {
+                            'data-target': '#carousel' + category,
+                            'data-slide-to': index,
+                            'class': activeClass
+                        }).appendTo(indicators);
+
+                        // Create carousel item
+                        var item = $('<div>', {
+                            'class': 'carousel-item ' + activeClass
+                        }).appendTo(inner);
+
+                        // Add image to carousel item
+                        $('<img>', {
+                            'src': image,
+                            'class': 'd-block w-100'
+                        }).appendTo(item);
+                    });
+
+                    $('<a>', {
+                        'class': 'carousel-control-prev',
+                        'href': '#carousel' + category,
+                        'role': 'button',
+                        'data-slide': 'prev'
+                    }).append($('<span>', {
+                        'class': 'carousel-control-prev-icon',
+                        'aria-hidden': 'true'
+                    })).append($('<span>', {
+                        'class': 'sr-only',
+                        'text': 'Previous'
+                    })).appendTo(carousel);
+
+                    $('<a>', {
+                        'class': 'carousel-control-next',
+                        'href': '#carousel' + category,
+                        'role': 'button',
+                        'data-slide': 'next'
+                    }).append($('<span>', {
+                        'class': 'carousel-control-next-icon',
+                        'aria-hidden': 'true'
+                    })).append($('<span>', {
+                        'class': 'sr-only',
+                        'text': 'Next'
+                    })).appendTo(carousel);
+                });
+
+                // Add click event to show images in modal carousel
+                $(document).on('click', '.card', function () {
+                    var category = $(this).data('category');
+                    var images = data.categories[category];
+
+                    var indicators = $('#carouselFullscreenPhotos .carousel-indicators').empty();
+                    var inner = $('#carouselFullscreenPhotos .carousel-inner').empty();
+
+                    $.each(images, function (index, image) {
+                        var activeClass = index === 0 ? 'active' : '';
+
+                        // Create indicator
+                        $('<li>', {
+                            'data-target': '#carouselFullscreenPhotos',
+                            'data-slide-to': index,
+                            'class': activeClass
+                        }).appendTo(indicators);
+
+                        // Create carousel item
+                        var item = $('<div>', {
+                            'class': 'carousel-item ' + activeClass
+                        }).appendTo(inner);
+
+                        // Add image to carousel item
+                        $('<img>', {
+                            'src': image,
+                            'class': 'd-block w-100'
+                        }).appendTo(item);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
